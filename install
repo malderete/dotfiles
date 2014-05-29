@@ -1,0 +1,118 @@
+#!/bin/bash
+
+# This script installs the dotfiles.
+# Author: Martin Alderete <malderete@gmail.com>
+
+# This script is on the ROOT of the project
+DOTFILES_ROOT=$(pwd)
+
+DEST=$HOME
+#for testing
+#DEST="/tmp"
+
+set -e
+
+echo ''
+
+info () {
+  printf "  [ \033[00;34mINFO\033[0m ] $1"
+}
+
+user () {
+  printf "\r  [ \033[0;33mQuestion?\033[0m ] $1 "
+}
+
+success () {
+  printf "\r\033[2K  [ \033[00;32mOK!\033[0m ] $1\n"
+}
+
+fail () {
+  printf "\r\033[2K  [\033[0;31mFAIL!\033[0m] $1\n"
+  echo ''
+  exit
+}
+
+link_files () {
+  ln -s $1 $2
+  success "linked $1 to $2"
+}
+
+install_dotfiles () {
+  if [ ! -e "$HOME/.dotfiles" ]
+  then
+    link_files $DOTFILES_ROOT $HOME/.dotfiles
+  fi
+
+  info 'Installing dotfiles project'
+
+  overwrite_all=false
+  backup_all=false
+  skip_all=false
+
+  for filename in `find "$DOTFILES_ROOT/symlinks" -type f -name "*.symlink"`
+  do
+    dest="${DEST}/.`basename "${filename%.*}"`"
+
+    if [ -f $dest ] || [ -d $dest ]
+    then
+
+      overwrite=false
+      backup=false
+      skip=false
+
+      if [ "$overwrite_all" == "false" ] && [ "$backup_all" == "false" ] && [ "$skip_all" == "false" ]
+      then
+        user "File already exists: `basename $filename`, what do you want to do? [s]kip, [S]kip all, [o]verwrite, [O]verwrite all, [b]ackup, [B]ackup all?"
+        read -n 1 action
+
+        case "$action" in
+          o )
+            overwrite=true;;
+          O )
+            overwrite_all=true;;
+          b )
+            backup=true;;
+          B )
+            backup_all=true;;
+          s )
+            skip=true;;
+          S )
+            skip_all=true;;
+          * )
+            ;;
+        esac
+      fi
+
+      if [ "$overwrite" == "true" ] || [ "$overwrite_all" == "true" ]
+      then
+        rm -rf $dest
+        success "Removed $dest"
+      fi
+
+      if [ "$backup" == "true" ] || [ "$backup_all" == "true" ]
+      then
+        dest_bk=${dest}_`date +'%F'`
+        mv $dest $dest_bk
+        success "Moved $dest to $dest_bk"
+      fi
+
+      if [ "$skip" == "false" ] && [ "$skip_all" == "false" ]
+      then
+        link_files $filename $dest
+      else
+        success "Skipped $filename"
+      fi
+
+    else
+      link_files $filename $dest
+    fi
+
+  done
+}
+
+install_dotfiles
+
+echo ''
+success 'All installed! Enjoy your shell...'
+
+#EOF

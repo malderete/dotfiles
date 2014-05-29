@@ -1,0 +1,52 @@
+#!/bin/bash
+
+#Configuration file for BASH :)
+
+
+#Not interactive then nothing to load!
+[ -z "$PS1" ] && return
+
+#dotfiles path
+export DOTFILESHOME=~/.dotfiles
+
+#Add dotfiles bin/ to PATH
+export PATH=${PATH}:${DOTFILESHOME}/bin
+
+#Load dependencies first
+CONFIG_FILES=`find "$DOTFILESHOME/libs/" -maxdepth 1 -type f ! -name "*.disable"`
+for file in $CONFIG_FILES
+do
+  source $file
+done
+
+#Load custom aliases
+CONFIG_FILES=`find "$DOTFILESHOME/aliases/" -maxdepth 1 -type f ! -name "*.disable"`
+for file in $CONFIG_FILES
+do
+  source $file
+done
+
+#Load custom config
+CONFIG_FILES=`find "$DOTFILESHOME/extra/" -maxdepth 1 -type f ! -name "*.disable"`
+for file in $CONFIG_FILES
+do
+  source $file
+done
+
+# Enable bash completion
+if [ -f /etc/bash_completion ]; then
+  source /etc/bash_completion
+fi
+
+#Load custom bash completion (could override the above one)
+CONFIG_FILES=`find "$DOTFILESHOME/completion/" -maxdepth 1 -type f ! -name "*.disable"`
+for file in $CONFIG_FILES
+do
+  source $file
+done
+
+#Per machine configuration, we dont share this
+if [ -a ~/.bash_local ]; then
+  source ~/.bash_local
+fi
+
