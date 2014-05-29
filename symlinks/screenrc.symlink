@@ -1,0 +1,20 @@
+# Turn off message
+startup_message off
+
+# look
+caption always "%{-u wk} %L=%-Lw%45>%{+ Gk} %n%f* %t %{-}%+Lw%-0< %=%{ck} %H | %M %d %c "
+#hardstatus alwayslastline
+#hardstatus string "%{-u wk} %L=%-Lw%45>%{+ Gk} %n%f* %t %{-}%+Lw%-0< %=%{ck} %H | %M %d %c "
+
+# Bigger scroll buffer
+defscrollback 10000
+altscreen on
+
+# Make the bell visible instead of audible
+vbell on
+vbell_msg "Ding"
+vbellwait 0
+  
+# Default screen
+#screen -t IRC weechat-curses
+
