@@ -113,6 +113,6 @@ install_dotfiles () {
 install_dotfiles
 
 echo ''
-success 'All installed! Enjoy your shell...'
+success "All installed! Enjoy your shell `whoami`"
 
 #EOF
