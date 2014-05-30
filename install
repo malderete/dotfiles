@@ -26,18 +26,32 @@ success () {
   printf "\r\033[2K  [ \033[00;32mOK!\033[0m ] $1\n"
 }
 
-fail () {
-  printf "\r\033[2K  [\033[0;31mFAIL!\033[0m] $1\n"
-  echo ''
-  exit
-}
 
-link_files () {
+
+link_files() {
   ln -s $1 $2
   success "linked $1 to $2"
 }
 
-install_dotfiles () {
+
+setup_gitconfig() {
+  if ! [ -f git/gitconfig.symlink ]
+  then
+    info 'setup gitconfig'
+
+    user ' - What is your GIT author name?'
+    read -e git_authorname
+    user ' - What is your GIT author email?'
+    read -e git_authoremail
+
+    sed -e "s/AUTHOR/$git_authorname/g" -e "s/EMAIL/$git_authoremail/g" symlinks/gitconfig.symlink.example > symlinks/gitconfig.symlink
+
+    success 'gitconfig'
+  fi
+}
+
+
+install_dotfiles() {
   if [ ! -e "$HOME/.dotfiles" ]
   then
     link_files $DOTFILES_ROOT $HOME/.dotfiles
@@ -110,6 +124,8 @@ install_dotfiles () {
   done
 }
 
+
+setup_gitconfig
 install_dotfiles
 
 echo ''

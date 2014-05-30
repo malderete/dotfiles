@@ -1,0 +1,31 @@
+[core]
+    editor = vim
+	excludefile = ~/.gitignore_global
+[user]
+	name = AUTHOR
+	email = EMAIL
+[diff]
+    tool = meld
+[diff "meld"]
+    external = git-meld-diff.py
+[difftool]
+	prompt = false
+[log]
+	decorate = full
+[alias]
+	hist = log --graph --pretty=format:'%C(yellow)%h%Creset \\-%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
+[color]
+	ui = true
+[color "status"]
+	added = yellow
+	changed = green
+	untracked = magenta
+[color "branch"]
+	current = green reverse #yellow reverse
+	local = yellow bold
+    remote = red bold
+[color "diff"]
+    meta = yellow bold
+    frag = magenta bold
+    old = red bold
+    new = green bold
