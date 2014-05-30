@@ -9,10 +9,11 @@ My aims IS NOT compare this project with another ones around there instead I jus
 There are a LOT of awesome *frameworks* to customize your shell such as bash-it, oh-my-zsh, etc, they have inspired me to do the job.
 
 ## Install
-Run:
+```sh
 git clone https://github.com/malderete/dotfiles.git
 cd dotfiles
 ./install
+```
 
 ##TODO
 Improve doc
