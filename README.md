@@ -21,7 +21,7 @@ cd dotfiles
 * `Functions`
 * `Aliases`
 * `Completions`
-* `Scripts
+* `Scripts`
 
 
 ##TODO
