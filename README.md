@@ -15,6 +15,16 @@ cd dotfiles
 ./install
 ```
 
+If you want to skip the GIT configuration you could set two ENV variable before install dotfiles.
+```sh
+git clone https://github.com/malderete/dotfiles.git
+cd dotfiles
+export DOT_GIT_AUTHORNAME='Your Name'
+export DOT_GIT_AUTHOREMAIL='yourEmail'
+./install
+```
+
+
 ## What is inside?
 * `Configurations`
 * `Custom prompt (Virtualenv + GIT support)`
