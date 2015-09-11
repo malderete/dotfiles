@@ -2,9 +2,10 @@
 startup_message off
 
 # look
-caption always "%{-u wk} %L=%-Lw%45>%{+ Gk} %n%f* %t %{-}%+Lw%-0< %=%{ck} %H | %M %d %c "
-#hardstatus alwayslastline
-#hardstatus string "%{-u wk} %L=%-Lw%45>%{+ Gk} %n%f* %t %{-}%+Lw%-0< %=%{ck} %H | %M %d %c "
+# Green on Black
+# caption always "%{-u wk} %L=%-Lw%45>%{+ Gk} %n%f* %t %{-}%+Lw%-0< %=%{ck} %H | %M %d %c "
+# White on Gray
+caption always '%{= Kd} %{= Kd}%-w%{= Kr}[%{= KW}%n %t%{= Kr}]%{= Kd}%+w %-= %{KG} %H%{KW}|%{KY}%101`%{KW}|%D %M %d %Y%{= Kc} %C%A%{-}'
 
 # Bigger scroll buffer
 defscrollback 10000
@@ -15,6 +16,3 @@ vbell on
 vbell_msg "Ding"
 vbellwait 0
   
-# Default screen
-#screen -t IRC weechat-curses
-

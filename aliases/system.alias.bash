@@ -19,6 +19,9 @@ alias df='df -kTh'
 #History
 alias h='history'
 
+#Crons
+alias allcrons='for user in $(cut -f1 -d: /etc/passwd); do sudo echo $user; sudo crontab -u $user -l; done'
+
 #-----------------------
 # Move around the FS
 #-----------------------
@@ -26,7 +29,6 @@ alias ..='cd ..'         # Go up one directory
 alias ...='cd ../..'     # Go up two directories
 alias ....='cd ../../..' # Go up three directories
 alias -- -='cd -'        # Go back
-
 
 #-------------------------------------------------------------
 # The 'ls' family (this assumes you use a recent GNU ls)
@@ -41,7 +43,6 @@ alias lu='ls -ltur'        # sort by and show access time, most recent last
 alias lt='ls -ltr'         # sort by date, most recent last
 alias lm='ls -al |more'    # pipe through 'more'
 alias lr='ls -lR'          # recursive ls
-
 
 #-------------------------------------------------------------
 # Styling cat (sudo pip install Pygments)
